@@ -18,6 +18,8 @@
     margin-bottom: 40px;
     font-size: 2.5em;
     letter-spacing: 2px;
+    color: #00aaff;
+    text-shadow: 0 0 10px rgba(0,170,255,0.7);
   }
 
   .gallery {
@@ -34,6 +36,8 @@
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0, 150, 255, 0.3);
     transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
   }
 
   .photo:hover {
@@ -43,26 +47,39 @@
 
   .photo img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 12px;
     display: block;
     margin-bottom: 15px;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .photo img:hover { transform: scale(1.05); }
+  .photo img:hover { 
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0,200,255,0.5);
+  }
 
   .photo button {
-    background: #00aaff;
+    background: linear-gradient(45deg, #00aaff, #0077aa);
     color: white;
     border: none;
-    padding: 10px 18px;
+    padding: 12px 20px;
     font-size: 14px;
-    border-radius: 8px;
+    font-weight: bold;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0,170,255,0.4);
   }
 
-  .photo button:hover { background: #0077aa; }
+  .photo button:hover {
+    background: linear-gradient(45deg, #0077aa, #00aaff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,200,255,0.6);
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
 
   @media (max-width: 500px) {
     h1 { font-size: 2em; }
@@ -78,12 +95,13 @@
 <div class="gallery" id="gallery"></div>
 
 <script>
-  // Just use filenames since they are in the same folder as index.html
+  // List of all images (added best4.webp)
   const images = [
     "suguu.webp",
     "best2.webp",
     "sstix.webp",
-    "66.jpg"
+    "66.jpg",
+    "best4.webp"
   ];
 
   const gallery = document.getElementById("gallery");
@@ -92,8 +110,9 @@
     const div = document.createElement("div");
     div.className = "photo";
     
+    // Lazy-loading and fade-in animation
     div.innerHTML = `
-      <img src="${src}" alt="${src}">
+      <img src="${src}" alt="${src}" loading="lazy">
       <button onclick="downloadImage('${src}')">Download</button>
     `;
     
