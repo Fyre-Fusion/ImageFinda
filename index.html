@@ -3,91 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <title>ImageFinda Gallery</title>
-
 <style>
-  * { box-sizing: border-box; margin:0; padding:0; }
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    font-family: Arial, sans-serif;
     background: #0b0f1a;
     color: white;
     text-align: center;
-    padding: 20px;
   }
 
   h1 {
-    margin-bottom: 40px;
-    font-size: 2.5em;
-    letter-spacing: 2px;
-    color: #00aaff;
-    text-shadow: 0 0 10px rgba(0,170,255,0.7);
+    margin-top: 30px;
   }
 
   .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
     max-width: 1200px;
-    margin: auto;
+    margin: 40px auto;
   }
 
   .photo {
     background: #1a1f2d;
     padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 150, 255, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-    opacity: 0;
-    animation: fadeIn 0.8s forwards;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
+    transition: transform 0.2s;
   }
 
   .photo:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 200, 255, 0.5);
+    transform: scale(1.05);
   }
 
   .photo img {
-    width: 100%;
-    border-radius: 12px;
+    max-width: 250px;
+    border-radius: 8px;
     display: block;
-    margin-bottom: 15px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .photo img:hover { 
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0,200,255,0.5);
   }
 
   .photo button {
-    background: linear-gradient(45deg, #00aaff, #0077aa);
-    color: white;
-    border: none;
-    padding: 12px 20px;
+    margin-top: 10px;
+    padding: 8px 16px;
     font-size: 14px;
-    font-weight: bold;
-    border-radius: 10px;
+    background: #1e90ff;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0,170,255,0.4);
+    color: white;
   }
 
   .photo button:hover {
-    background: linear-gradient(45deg, #0077aa, #00aaff);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,200,255,0.6);
-  }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
-  @media (max-width: 500px) {
-    h1 { font-size: 2em; }
-    .photo button { width: 100%; }
+    background: #1873cc;
   }
 </style>
 </head>
-
 <body>
 
 <h1>ImageFinda Gallery</h1>
@@ -95,27 +66,35 @@
 <div class="gallery" id="gallery"></div>
 
 <script>
-  // List of all images (added best4.webp)
+  // List of images
   const images = [
-    "suguu.webp",
-    "best2.webp",
-    "sstix.webp",
-    "66.jpg",
-    "best4.webp"
+    { src: "suguu.webp", alt: "Artwork 1" },
+    { src: "best2.webp", alt: "Artwork 2" },
+    { src: "sstix.webp", alt: "Artwork 3" },
+    { src: "66.jpg", alt: "Artwork 4" },
+    { src: "best4.webp", alt: "Artwork 5" },
+    { src: "gojooo.webp", alt: "Artwork 6" },
+    { src: "zzoro.jpg", alt: "Artwork 7" },
+    { src: "sukunna.jpg", alt: "Artwork 8" },
+    { src: "rengoku.jpeg", alt: "Artwork 9" },
+    { src: "zenitsu.jpeg", alt: "Artwork 10" },
+    { src: "rengoku2.jpeg", alt: "Artwork 11" },
+    { src: "tanj1.jpeg", alt: "Artwork 12" },
+    { src: "tanj2.jpeg", alt: "Artwork 13" },
+    { src: "tanj3.jpeg", alt: "Artwork 14" }
   ];
 
   const gallery = document.getElementById("gallery");
 
-  images.forEach(src => {
+  images.forEach((img) => {
     const div = document.createElement("div");
     div.className = "photo";
-    
-    // Lazy-loading and fade-in animation
+
     div.innerHTML = `
-      <img src="${src}" alt="${src}" loading="lazy">
-      <button onclick="downloadImage('${src}')">Download</button>
+      <img src="${img.src}" alt="${img.alt}" loading="lazy">
+      <button onclick="downloadImage('${img.src}')">Download Image</button>
     `;
-    
+
     gallery.appendChild(div);
   });
 
