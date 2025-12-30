@@ -5,53 +5,83 @@
 <title>ImageFinda Gallery</title>
 
 <style>
-  body {
+  /* Reset some default styles */
+  * {
+    box-sizing: border-box;
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #0b0f1a;
     color: white;
     text-align: center;
+    padding: 20px;
   }
 
   h1 {
-    margin-top: 30px;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    letter-spacing: 2px;
   }
 
   .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 1000px;
-    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
   }
 
   .photo {
     background: #1a1f2d;
     padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 150, 255, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .photo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 200, 255, 0.5);
   }
 
   .photo img {
-    max-width: 250px;
-    border-radius: 8px;
+    width: 100%;
+    border-radius: 10px;
     display: block;
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+  }
+
+  .photo img:hover {
+    transform: scale(1.05);
   }
 
   .photo button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    font-size: 14px;
-    background: #1e90ff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    background: #00aaff;
     color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
   }
 
   .photo button:hover {
-    background: #1873cc;
+    background: #0077aa;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 500px) {
+    h1 {
+      font-size: 2em;
+    }
+    .photo button {
+      width: 100%;
+    }
   }
 </style>
 </head>
@@ -67,7 +97,8 @@
   const images = [
     { src: "suguu.webp", alt: "Artwork 1" },
     { src: "best2.webp", alt: "Artwork 2" },
-    { src: "sstix.webp", alt: "Artwork 3" }
+    { src: "sstix.webp", alt: "Artwork 3" },
+    { src: "66.jpg", alt: "Artwork 4" }
   ];
 
   const gallery = document.getElementById("gallery");
@@ -75,19 +106,19 @@
   images.forEach((img) => {
     const div = document.createElement("div");
     div.className = "photo";
-    
+
     div.innerHTML = `
       <img src="${img.src}" alt="${img.alt}">
-      <button onclick="downloadImage('${img.src}')">Download Image</button>
+      <button onclick="downloadImage('${img.src}')">Download</button>
     `;
-    
+
     gallery.appendChild(div);
   });
 
   function downloadImage(file) {
     const link = document.createElement("a");
     link.href = file;
-    link.download = file;
+    link.download = file.split('/').pop();
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -96,4 +127,3 @@
 
 </body>
 </html>
-
