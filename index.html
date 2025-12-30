@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ImageFinda Auto Gallery</title>
+<title>ImageFinda Gallery</title>
 
 <style>
   * { box-sizing: border-box; margin:0; padding:0; }
@@ -73,16 +73,12 @@
 
 <body>
 
-<h1>ImageFinda Auto Gallery</h1>
+<h1>ImageFinda Gallery</h1>
 
 <div class="gallery" id="gallery"></div>
 
 <script>
-  // Auto-detect images in the same folder
-  const allowedExtensions = ['jpg','jpeg','png','webp','gif'];
-  
-  // You need to **manually list images in GitHub Pages** (because JS cannot read local folder contents for security)
-  // So here’s a trick: just list them once; later you can add new images manually to this array
+  // Just use filenames since they are in the same folder as index.html
   const images = [
     "suguu.webp",
     "best2.webp",
@@ -93,9 +89,6 @@
   const gallery = document.getElementById("gallery");
 
   images.forEach(src => {
-    const ext = src.split('.').pop().toLowerCase();
-    if (!allowedExtensions.includes(ext)) return;
-
     const div = document.createElement("div");
     div.className = "photo";
     
