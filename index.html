@@ -14,8 +14,19 @@
     text-align: center;
   }
 
+  .logo-container {
+    margin-top: 25px;
+  }
+
+  .logo-container img {
+    width: 140px;
+    max-width: 60%;
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
+  }
+
   h1 {
-    margin: 30px 0 10px;
+    margin: 20px 0 10px;
     letter-spacing: 1.5px;
   }
 
@@ -59,17 +70,15 @@
     cursor: pointer;
     color: white;
     font-weight: bold;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .photo button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 200, 255, 0.9);
   }
 </style>
 </head>
 
 <body>
+
+<div class="logo-container">
+  <img src="logo.jpeg" alt="ImageFinda Logo">
+</div>
 
 <h1>ImageFinda Gallery</h1>
 
@@ -145,7 +154,10 @@ const gallery = document.getElementById("gallery");
 images.forEach(file => {
   const card = document.createElement("div");
   card.className = "photo";
-  card.innerHTML = `<img src="${file}" alt="${file}"><button onclick="downloadImage('${file}')">Download</button>`;
+  card.innerHTML = `
+    <img src="${file}" alt="${file}" loading="lazy">
+    <button onclick="downloadImage('${file}')">Download</button>
+  `;
   gallery.appendChild(card);
 });
 
